@@ -1,0 +1,6 @@
+.DS_*
+*.log
+logs
+
+public
+node_modules
