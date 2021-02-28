@@ -13,12 +13,23 @@ const webpackConfig = (): Configuration => ({
     rules: [
       {
         test: /\.js(x?)$/,
-        loader: 'babel-loader',
+        use: [
+          {
+            loader: 'babel-loader',
+          },
+        ],
         exclude: /node_modules/,
       },
       {
         test: /\.ts(x?)$/,
-        loader: 'ts-loader',
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
         exclude: /node_modules/,
       },
     ],

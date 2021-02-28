@@ -6,8 +6,12 @@
   "scripts": {
     "start": "webpack serve --hot --open --mode development",
     "build": "webpack --mode production",
-    "fix": "yarn fix:prettier",
-    "fix:prettier": "yarn prettier . --write"
+    "lint": "run-p lint:*",
+    "lint:eslint": "eslint './src/**/*.{ts,tsx}'",
+    "lint:prettier": "prettier . --check",
+    "fix": "run-s fix:eslint fix:prettier",
+    "fix:eslint": "yarn lint:eslint --fix",
+    "fix:prettier": "yarn lint:prettier . --write"
   },
   "dependencies": {
     "react": "^17.0.1",
@@ -20,7 +24,13 @@
     "@types/react-dom": "^17.0.1",
     "@types/webpack": "^4.41.26",
     "@types/webpack-dev-server": "^3.11.1",
+    "@typescript-eslint/eslint-plugin": "^4.15.2",
+    "@typescript-eslint/parser": "^4.15.2",
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-react": "^7.22.0",
     "html-webpack-plugin": "^5.2.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.2.1",
     "ts-loader": "^8.0.17",
     "ts-node": "^9.1.1",
