@@ -4,6 +4,7 @@ import * as yup from 'yup'
 
 import { FormikPage } from 'components/formik'
 import { FormValues } from 'types'
+import { sleep } from 'utils'
 
 const initialValues: FormValues = {
   name: '',
@@ -26,14 +27,13 @@ const validationSchema: FormikConfig<FormValues>['validationSchema'] = yup.objec
   }
 )
 
-const onSubmit: FormikConfig<FormValues>['onSubmit'] = (
+const onSubmit: FormikConfig<FormValues>['onSubmit'] = async (
   values,
   { setSubmitting }
 ) => {
-  setTimeout(() => {
-    console.log(values)
-    setSubmitting(false)
-  }, 1000)
+  await sleep(1000)
+  console.log(values)
+  setSubmitting(false)
 }
 
 export const FormikContainer = () => (

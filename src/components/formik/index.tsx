@@ -4,14 +4,29 @@ import {
   CircularProgress,
   Container,
   Grid,
+  MenuItem,
   TextField,
 } from '@material-ui/core'
 import { FormikProps } from 'formik'
 
-import { Options } from 'components/select-box-option'
 import { FormValues } from 'types'
 
 type Props = FormikProps<FormValues>
+
+const options = [
+  {
+    value: 1,
+    label: 'Watching K-drama',
+  },
+  {
+    value: 2,
+    label: 'Hanging out with my friend',
+  },
+  {
+    value: 3,
+    label: 'Staying at home',
+  },
+]
 
 export const FormikPage: React.FC<Props> = ({
   dirty,
@@ -56,7 +71,11 @@ export const FormikPage: React.FC<Props> = ({
               select
               variant="outlined"
             >
-              <Options />
+              {options.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
             </TextField>
           </Grid>
           <Grid item xs={12}>
