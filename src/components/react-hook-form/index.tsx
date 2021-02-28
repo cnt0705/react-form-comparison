@@ -11,12 +11,8 @@ import { SubmitHandler, UseFormMethods, Controller } from 'react-hook-form'
 
 import { FormValues } from 'types'
 
-type ReactHookFormProps = Pick<
-  UseFormMethods,
-  'handleSubmit' | 'register' | 'control' | 'formState'
->
-
-type Props = ReactHookFormProps & {
+type Props = {
+  methods: UseFormMethods<FormValues>
   onSubmit: SubmitHandler<FormValues>
 }
 
@@ -35,14 +31,14 @@ const options = [
   },
 ]
 
-export const ReactHookFormPage: React.FC<Props> = ({
-  control,
-  formState,
-  handleSubmit,
-  onSubmit,
-  register,
-}) => {
-  const { isSubmitting } = formState
+export const ReactHookFormPage: React.VFC<Props> = ({ methods, onSubmit }) => {
+  const {
+    control,
+    errors,
+    formState: { isSubmitting, isValid },
+    handleSubmit,
+    register,
+  } = methods
 
   return (
     <Container maxWidth="sm">
@@ -53,6 +49,8 @@ export const ReactHookFormPage: React.FC<Props> = ({
               name="name"
               label="Name"
               inputRef={register}
+              error={Boolean(errors.name)}
+              helperText={errors.name?.message}
               fullWidth
               variant="outlined"
             />
@@ -64,6 +62,8 @@ export const ReactHookFormPage: React.FC<Props> = ({
               as={
                 <TextField
                   label="What You Like"
+                  error={Boolean(errors.favorite)}
+                  helperText={errors.favorite?.message}
                   fullWidth
                   select
                   variant="outlined"
@@ -82,6 +82,8 @@ export const ReactHookFormPage: React.FC<Props> = ({
               name="more"
               label="Tell Us More"
               inputRef={register}
+              error={Boolean(errors.more)}
+              helperText={errors.more?.message}
               fullWidth
               multiline
               rows={5}
@@ -93,7 +95,7 @@ export const ReactHookFormPage: React.FC<Props> = ({
               type="submit"
               variant="contained"
               color="secondary"
-              disabled={isSubmitting}
+              disabled={isSubmitting || !isValid}
             >
               {isSubmitting ? (
                 <CircularProgress size={25} color="secondary" />

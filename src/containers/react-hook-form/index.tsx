@@ -1,9 +1,11 @@
 import React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 import { ReactHookFormPage } from 'components/react-hook-form'
 import { FormValues } from 'types'
 import { sleep } from 'utils'
+import { validationSchema } from 'validations'
 
 const initialValues: FormValues = {
   name: '',
@@ -17,17 +19,11 @@ const onSubmit: SubmitHandler<FormValues> = async data => {
 }
 
 export const ReactHookFormContainer = () => {
-  const { handleSubmit, register, control, formState } = useForm<FormValues>({
+  const methods = useForm<FormValues>({
     defaultValues: initialValues,
+    mode: 'onBlur',
+    resolver: yupResolver(validationSchema),
   })
 
-  return (
-    <ReactHookFormPage
-      control={control}
-      formState={formState}
-      handleSubmit={handleSubmit}
-      onSubmit={onSubmit}
-      register={register}
-    />
-  )
+  return <ReactHookFormPage methods={methods} onSubmit={onSubmit} />
 }

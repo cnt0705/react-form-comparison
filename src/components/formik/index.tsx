@@ -28,7 +28,7 @@ const options = [
   },
 ]
 
-export const FormikPage: React.FC<Props> = ({
+export const FormikPage: React.VFC<Props> = ({
   dirty,
   errors,
   handleBlur,
