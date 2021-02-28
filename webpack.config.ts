@@ -37,9 +37,6 @@ const webpackConfig = (): Configuration => ({
   resolve: {
     extensions: ['.js', '.ts', '.tsx'],
     modules: ['node_modules', path.resolve(__dirname, 'src')],
-    alias: {
-      components: path.resolve(__dirname, './src/components/'),
-    },
   },
   plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
 })
