@@ -1,5 +1,10 @@
 import React from 'react'
 import { Button, Container, Grid, MenuItem, TextField } from '@material-ui/core'
+import { FormikProps } from 'formik'
+
+import { FormValues } from 'types'
+
+type Props = FormikProps<FormValues>
 
 const options = [
   {
@@ -16,16 +21,41 @@ const options = [
   },
 ]
 
-export const FormikPage: React.FC = () => {
+export const FormikPage: React.FC<Props> = ({
+  values,
+  // errors,
+  // touched,
+  handleChange,
+  handleBlur,
+  handleSubmit,
+  isSubmitting,
+}) => {
   return (
     <Container maxWidth="sm">
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <Grid container spacing={5}>
           <Grid item xs={12}>
-            <TextField id="name" label="Name" fullWidth />
+            <TextField
+              id="name"
+              name="name"
+              label="Name"
+              value={values.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              fullWidth
+            />
           </Grid>
           <Grid item xs={12}>
-            <TextField id="favorite" label="What You Like" fullWidth select>
+            <TextField
+              id="favorite"
+              name="favorite"
+              label="What You Like"
+              value={values.favorite}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              fullWidth
+              select
+            >
               {options.map(option => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
@@ -34,7 +64,7 @@ export const FormikPage: React.FC = () => {
             </TextField>
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" color="primary">
+            <Button type="submit" variant="contained" color="primary">
               Submit
             </Button>
           </Grid>
