@@ -1,24 +1,21 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
+import CssBaseline from '@material-ui/core/CssBaseline'
 
 import { FormikContainer } from 'containers/formik'
 
 export const App = () => {
   return (
-    <Router>
-      <ul>
-        <li>
-          <Link to="/formik">Formik</Link>
-        </li>
-        <li>
-          <Link to="/react-hook-form">React Hook Form</Link>
-        </li>
-      </ul>
-      <Switch>
-        <Route path="/formik">
-          <FormikContainer />
-        </Route>
-      </Switch>
-    </Router>
+    <>
+      <CssBaseline />
+      <Router>
+        <Switch>
+          <Route path="/formik">
+            <FormikContainer />
+          </Route>
+        </Switch>
+      </Router>
+    </>
   )
 }

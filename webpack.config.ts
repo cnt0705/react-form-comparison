@@ -39,6 +39,9 @@ const webpackConfig = (): Configuration => ({
     modules: ['node_modules', path.resolve(__dirname, 'src')],
   },
   plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
+  devServer: {
+    historyApiFallback: true,
+  },
 })
 
 export default webpackConfig
