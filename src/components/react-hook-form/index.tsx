@@ -1,20 +1,7 @@
 import React from 'react'
-import { Button, Container, Grid, MenuItem, TextField } from '@material-ui/core'
+import { Button, Container, Grid, TextField } from '@material-ui/core'
 
-const options = [
-  {
-    value: 1,
-    label: 'Watching K-drama',
-  },
-  {
-    value: 2,
-    label: 'Hanging out with my friend',
-  },
-  {
-    value: 3,
-    label: 'Staying at home',
-  },
-]
+import { Options } from 'components/select-box-option'
 
 export const ReactHookFormPage: React.FC = () => {
   return (
@@ -39,11 +26,7 @@ export const ReactHookFormPage: React.FC = () => {
               select
               variant="outlined"
             >
-              {options.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
+              <Options />
             </TextField>
           </Grid>
           <Grid item xs={12}>
