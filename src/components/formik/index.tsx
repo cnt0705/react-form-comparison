@@ -1,5 +1,12 @@
 import React from 'react'
-import { Button, Container, Grid, MenuItem, TextField } from '@material-ui/core'
+import {
+  Button,
+  CircularProgress,
+  Container,
+  Grid,
+  MenuItem,
+  TextField,
+} from '@material-ui/core'
 import { FormikProps } from 'formik'
 
 import { FormValues } from 'types'
@@ -22,13 +29,15 @@ const options = [
 ]
 
 export const FormikPage: React.FC<Props> = ({
-  values,
-  // errors,
-  // touched,
-  handleChange,
+  dirty,
+  errors,
   handleBlur,
+  handleChange,
   handleSubmit,
   isSubmitting,
+  isValid,
+  touched,
+  values,
 }) => {
   return (
     <Container maxWidth="sm">
@@ -42,7 +51,10 @@ export const FormikPage: React.FC<Props> = ({
               value={values.name}
               onChange={handleChange}
               onBlur={handleBlur}
+              error={touched.name && Boolean(errors.name)}
+              helperText={touched.name && errors.name}
               fullWidth
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={12}>
@@ -53,8 +65,11 @@ export const FormikPage: React.FC<Props> = ({
               value={values.favorite}
               onChange={handleChange}
               onBlur={handleBlur}
+              error={touched.favorite && Boolean(errors.favorite)}
+              helperText={touched.favorite && errors.favorite}
               fullWidth
               select
+              variant="outlined"
             >
               {options.map(option => (
                 <MenuItem key={option.value} value={option.value}>
@@ -64,8 +79,29 @@ export const FormikPage: React.FC<Props> = ({
             </TextField>
           </Grid>
           <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary">
-              Submit
+            <TextField
+              id="more"
+              name="more"
+              label="Tell Us More"
+              value={values.more}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.more && Boolean(errors.more)}
+              helperText={touched.more && errors.more}
+              fullWidth
+              multiline
+              rows={5}
+              variant="outlined"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={isSubmitting || !(isValid && dirty)}
+            >
+              {isSubmitting ? <CircularProgress size={25} /> : 'Submit'}
             </Button>
           </Grid>
         </Grid>
