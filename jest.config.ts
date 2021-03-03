@@ -1,4 +1,4 @@
 module.exports = {
   modulePaths: ['src/'],
-  setupFiles: ['<rootDir>/jest.setup.ts'],
+  setupFilesAfterEnv: ['./jest.setup.ts'],
 }

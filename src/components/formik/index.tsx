@@ -29,7 +29,6 @@ const options = [
 ]
 
 export const FormikPage: React.VFC<Props> = ({
-  dirty,
   errors,
   handleBlur,
   handleChange,
@@ -55,6 +54,9 @@ export const FormikPage: React.VFC<Props> = ({
               helperText={touched.name && errors.name}
               fullWidth
               variant="outlined"
+              inputProps={{
+                'data-testid': 'name',
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -70,6 +72,9 @@ export const FormikPage: React.VFC<Props> = ({
               fullWidth
               select
               variant="outlined"
+              inputProps={{
+                'data-testid': 'favorite',
+              }}
             >
               {options.map(option => (
                 <MenuItem key={option.value} value={option.value}>
@@ -92,6 +97,9 @@ export const FormikPage: React.VFC<Props> = ({
               multiline
               rows={5}
               variant="outlined"
+              inputProps={{
+                'data-testid': 'more',
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -99,7 +107,7 @@ export const FormikPage: React.VFC<Props> = ({
               type="submit"
               variant="contained"
               color="primary"
-              disabled={isSubmitting || !(isValid && dirty)}
+              disabled={isSubmitting || !isValid}
             >
               {isSubmitting ? <CircularProgress size={25} /> : 'Submit'}
             </Button>
